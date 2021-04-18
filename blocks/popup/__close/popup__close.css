@@ -5,11 +5,12 @@
     background-size: contain;
     background-position: center center;
     position: absolute;
-    top: -40px;
-    right: -40px;
+    top: -42px;
+    right: -36px;
     padding: 0;
-    min-width: 40px;
-    min-height: 40px;
+    max-width: 33px;
+    min-height: 42px;
+    width: 100%;
     border: none;
     transition: opacity 0.3s ease-in-out;
     ;
@@ -17,4 +18,11 @@
 
 .popup__close:hover {
     opacity: 0.6;
+}
+
+@media (max-width: 690px) {
+    .popup__close {
+        right: 0;
+        max-width: 26px;
+    }
 }

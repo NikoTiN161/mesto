@@ -1,5 +1,9 @@
 .popup__description {
-    padding: 0;
+    padding-bottom: 8px;
     margin-top: 30px;
-    
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
 }

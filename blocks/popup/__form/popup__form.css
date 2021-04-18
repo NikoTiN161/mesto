@@ -3,4 +3,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 358px;
+}
+
+@media (max-width: 690px) {
+    .popup__form {
+        min-width: 238px;
+    }
 }
