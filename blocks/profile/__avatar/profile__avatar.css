@@ -3,3 +3,9 @@
     border-radius: 120px;
     max-width: 120px;
 }
+
+@media (max-width:690px) {
+    .profile__avatar {
+        flex-basis: 100%;
+    }
+}

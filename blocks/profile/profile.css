@@ -8,3 +8,20 @@
     font-family: Inter;
     font-style: normal;
 }
+
+@media (max-width:920px) {
+    .profile {
+        padding-left: 19px;
+        padding-right: 19px;
+    }
+}
+
+@media (max-width:690px) {
+    .profile {
+        padding-top: 42px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+

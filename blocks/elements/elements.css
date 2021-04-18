@@ -5,3 +5,17 @@
     font-family: Inter;
     font-style: normal;
 }
+
+@media (max-width:920px) {
+    .elements {
+        padding-left: 19px;
+        padding-right: 19px;
+    }
+}
+
+
+@media (max-width:690px) {
+    .elements {
+        padding-top: 36px;
+    }
+}
