@@ -1,4 +1,4 @@
-.popup__close {
+.overlay__close {
     background-image: url(../../../images/close-icon.svg);
     background-color: transparent;
     background-repeat: no-repeat;
@@ -15,12 +15,13 @@
     transition: opacity 0.3s ease-in-out;
 }
 
-.popup__close:hover {
+.overlay__close:hover {
     opacity: 0.6;
+    cursor: pointer;
 }
 
-@media (max-width: 690px) {
-    .popup__close {
+@media (max-width: 530px) {
+    .overlay__close {
         right: 0;
         max-width: 26px;
     }

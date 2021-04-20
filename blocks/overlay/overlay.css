@@ -1,7 +1,7 @@
 .overlay {
     display: none;
     justify-content: center;
-    /* align-items: center; */
+    align-items: center;
     position: fixed;
     background-color: rgba(0, 0, 0, .5);
     top: 0;

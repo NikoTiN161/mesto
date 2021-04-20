@@ -1,5 +1,5 @@
 .page {
-    max-width: 1280px;
+    max-width: 880px;
     background-color: #000;
     font-family: Inter, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -11,4 +11,11 @@
     font-style: normal;
     color: #FFFFFF;
     margin: 0 auto;
+    padding: 0 19px;
+}
+
+@media (max-width:690px) {
+    .page {
+        padding: 0;
+    }
 }

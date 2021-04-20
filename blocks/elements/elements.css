@@ -1,18 +1,8 @@
 .elements {
-    margin: 0 auto;
     padding-top: 50px;
-    max-width: 880px;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-style: normal;
 }
-
-@media (max-width:920px) {
-    .elements {
-        padding-left: 19px;
-        padding-right: 19px;
-    }
-}
-
 
 @media (max-width:690px) {
     .elements {
