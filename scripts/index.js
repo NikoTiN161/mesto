@@ -4,8 +4,8 @@ const closePopupButton = document.querySelector('.overlay__close');
 const profileUsername = document.querySelector('.profile__username');
 const profileDescription = document.querySelector('.profile__description');
 const formElement = document.querySelector('.form');
-const nameInput = formElement.querySelector('.form__username');
-const jobInput = formElement.querySelector('.form__description');
+const nameInput = formElement.querySelector('.form__input_type_name');
+const jobInput = formElement.querySelector('.form__input_type_description');
 
 
 function openPopupHandler(e) {

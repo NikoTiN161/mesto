@@ -2,10 +2,5 @@
     margin: 0;
     border-radius: 120px;
     max-width: 120px;
-}
-
-@media (max-width:690px) {
-    .profile__avatar {
-        justify-self:stretch;
-    }
+    flex-basis: 100vw;
 }

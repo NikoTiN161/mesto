@@ -12,5 +12,6 @@
         padding-top: 26px;
         padding-right: 15px;
         text-align: center;
+        flex-basis: 75%;
     }
 }
