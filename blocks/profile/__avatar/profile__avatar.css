@@ -6,6 +6,6 @@
 
 @media (max-width:690px) {
     .profile__avatar {
-        flex-basis: 100%;
+        justify-self:stretch;
     }
 }

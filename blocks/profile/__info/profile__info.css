@@ -10,14 +10,7 @@
 @media (max-width:690px) {
     .profile__info {
         padding-top: 26px;
-        padding-right: 10px;
-        flex-basis: 189px;
+        padding-right: 15px;
         text-align: center;
-    }
-}
-
-@media (max-width:355px) {
-    .profile__info {
-        padding-left: 0;
     }
 }

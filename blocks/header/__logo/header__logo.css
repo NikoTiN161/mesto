@@ -21,7 +21,8 @@
 
 @media (max-width:690px) {
     .header__logo {
-        min-width: 103,74px;
-        min-height: 24,4px;
+        min-width: 103.74px;
+        min-height: 24.4px;
+        padding-bottom: 31.6px;
     }
 }
