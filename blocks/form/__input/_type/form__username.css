@@ -1,9 +1,15 @@
-.form__description {
+.form__input_type_name {
     padding-bottom: 9px;
-    margin-top: 30px;
+    margin-top: 47px;
     font-family: Inter, Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;
+}
+
+@media (max-width: 530px) {
+    .form__input_type_name {
+        margin-top: 75px;
+    }
 }
