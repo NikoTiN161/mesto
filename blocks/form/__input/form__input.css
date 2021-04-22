@@ -12,9 +12,8 @@
     margin-top: 47px;
 }
 
-
 @media (max-width: 530px) {
-        .form__input:first-of-type {
+    .form__input:first-of-type {
         margin-top: 75px;
     }
 }
