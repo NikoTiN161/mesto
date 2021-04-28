@@ -3,9 +3,10 @@ const popupOverlay = document.querySelector('.overlay');
 const closePopupButton = document.querySelector('.overlay__close');
 const profileUsername = document.querySelector('.profile__username');
 const profileDescription = document.querySelector('.profile__description');
-const formElement = document.querySelector('.form');
-const nameInput = formElement.querySelector('.form__input_type_name');
-const jobInput = formElement.querySelector('.form__input_type_description');
+const formEditProfile = document.querySelector('.form_type_edit-profile');
+const nameInput = formEditProfile.querySelector('.form__input_type_name');
+const jobInput = formEditProfile.querySelector('.form__input_type_description');
+const ArrayLikeButtons = Array.from(document.querySelectorAll('.elements__like-button'));
 
 
 function openPopupHandler(e) {
@@ -27,6 +28,21 @@ function formSubmitHandler(e) {
     closePopupHandler(e);
 }
 
+function likeButtonsHandler(e) {
+    e.preventDefault();
+    e.target.classList.toggle('elements__like-button_liked');
+}
+
+function addEventListenerButtons(arr, action = 'click', functionName) {
+
+    arr.forEach(element => {
+        element.addEventListener(action, functionName);
+    });
+
+}
+
+addEventListenerButtons(ArrayLikeButtons, 'click', likeButtonsHandler);
 profileEdit.addEventListener('click', openPopupHandler);
 closePopupButton.addEventListener('click', closePopupHandler);
-formElement.addEventListener('submit', formSubmitHandler);
+formEditProfile.addEventListener('submit', formSubmitHandler);
+
