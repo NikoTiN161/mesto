@@ -63,6 +63,13 @@ function createCard(item) {
         e.target.classList.toggle('elements__like-button_liked');
     });
 
+    const elementDeleteButton = element.querySelector('.elements__delete-button');
+    elementDeleteButton.addEventListener('click', function deleteElementHandler(e) {
+        e.preventDefault();
+        const elementRemove = elementDeleteButton.closest('.elements__item');
+        elementRemove.remove();
+    });
+
     return element;
 }
 
