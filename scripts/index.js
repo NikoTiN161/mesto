@@ -81,29 +81,29 @@ function createCards(arr, list) {
     });
 }
 
-function toggleStateVisible(params) {
+function toggleStateVisible(...params) {
     if (!(params.length === undefined)) {
         params.forEach((item) => {
             item.classList.toggle('overlay_opened');
         })
-    } else params.classList.toggle('overlay_opened');
+    }
 }
 
 function openPopupEditProfileHandler(e) {
     e.preventDefault();
-    toggleStateVisible([popupOverlay, popupTypeEditProfile]);
+    toggleStateVisible(popupOverlay, popupTypeEditProfile);
     nameInput.value = profileUsername.textContent;
     jobInput.value = profileDescription.textContent;
 }
 
 function openPopupAddCardHandler(e) {
     e.preventDefault();
-    toggleStateVisible([popupOverlay, popupTypeAddCard]);
+    toggleStateVisible(popupOverlay, popupTypeAddCard);
 }
 
 function openPopupImageHandler(e) {
     e.preventDefault();
-    toggleStateVisible([popupOverlay, popupTypeImage]);
+    toggleStateVisible(popupOverlay, popupTypeImage);
     popupOverlay.classList.toggle('overlay_darker');
     popupTypeImage.querySelector('.popup-image__image').src = e.target.src;
     popupTypeImage.querySelector('.popup-image__caption').textContent = e.target.alt.slice(12);
@@ -111,8 +111,8 @@ function openPopupImageHandler(e) {
 
 function closePopupHandler(e) {
     e.preventDefault();
-    toggleStateVisible([e.target.closest('.overlay'), e.target.closest('.overlay__container')]);
     e.target.closest('.overlay').classList.remove('overlay_darker');
+    toggleStateVisible(e.target.closest('.overlay'), e.target.closest('.overlay__container'));
 }
 
 function formEditProfileSubmitHandler(e) {
@@ -139,8 +139,3 @@ overlayCloseButtons.forEach((item) => {
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 formAddCard.addEventListener('submit', formAddCardSubmitHandler)
 
-document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') overlayCloseButtons.forEach((item) => {
-        item.click();
-    });
-});

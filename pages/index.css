@@ -33,8 +33,6 @@
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__header/form__header.css);
 @import url(../blocks/form/__input/form__input.css);
-@import url(../blocks/form/__input/_type/form__username.css);
-@import url(../blocks/form/__input/_type/form__description.css);
 @import url(../blocks/form/__save-button/form__save-button.css);
 @import url(../blocks/popup-image/popup-image.css);
 @import url(../blocks/popup-image/__image/popup-image__image.css);
