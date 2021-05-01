@@ -33,6 +33,7 @@ const profileAddButton = document.querySelector('.profile__add-button');
 const popupOverlay = document.querySelector('.overlay');
 const popupTypeEditProfile = document.querySelector('.overlay__container_type_edit-profile');
 const popupTypeAddCard = document.querySelector('.overlay__container_type_add-card');
+const popupTypeImage = document.querySelector('.overlay__container_type_popup-image');
 const overlayCloseButtons = Array.from(document.querySelectorAll('.overlay__close'));
 const profileUsername = document.querySelector('.profile__username');
 const profileDescription = document.querySelector('.profile__description');
@@ -52,7 +53,7 @@ function createCard(item) {
 
     imageElement.addEventListener('click', function (e) {
         e.preventDefault();
-        console.log(`нажали на картинку ${e.target.alt} link: ${e.target.src}`);
+        openPopupImageHandler(e);
     });
 
     element.querySelector('.elements__header').textContent = item.name;
@@ -98,9 +99,18 @@ function openPopupAddCardHandler(e) {
     toggleStateVisible([popupOverlay, popupTypeAddCard]);
 }
 
+function openPopupImageHandler(e) {
+    e.preventDefault();
+    toggleStateVisible([popupOverlay, popupTypeImage]);
+    popupOverlay.classList.toggle('overlay_darker');
+    popupTypeImage.querySelector('.popup-image__image').src = e.target.src;
+    popupTypeImage.querySelector('.popup-image__caption').textContent = e.target.alt.slice(12);
+}
+
 function closePopupHandler(e) {
     e.preventDefault();
     e.target.closest('.overlay').classList.toggle('overlay_opened');
+    e.target.closest('.overlay').classList.remove('overlay_darker');
     e.target.closest('.overlay__container').classList.toggle('overlay_opened');
 }
 

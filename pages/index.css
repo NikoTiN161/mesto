@@ -27,10 +27,15 @@
 @import url(../blocks/overlay/overlay.css);
 @import url(../blocks/overlay/__container/overlay__container.css);
 @import url(../blocks/overlay/_opened/overlay_opened.css);
+@import url(../blocks/overlay/_darker/overlay_darker.css);
 @import url(../blocks/overlay/__close/overlay__close.css);
+@import url(../blocks/overlay/__container/_type/overlay__container_type_popup-image.css);
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__header/form__header.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__input/_type/form__username.css);
 @import url(../blocks/form/__input/_type/form__description.css);
 @import url(../blocks/form/__save-button/form__save-button.css);
+@import url(../blocks/popup-image/popup-image.css);
+@import url(../blocks/popup-image/__image/popup-image__image.css);
+@import url(../blocks/popup-image/__caption/popup-image__caption.css);
