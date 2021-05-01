@@ -35,13 +35,23 @@
     </footer>
 
     <div class="overlay">
-        <div class="overlay__container">
+        <div class="overlay__container overlay__container_type_edit-profile">
             <button type="button" class="overlay__close"></button>
             <form action="/" name="form_type_edit-profile" class="form form_type_edit-profile">
                 <h2 class="form__header">Редактировать профиль</h2>
                 <input type="text" name="username" placeholder="Имя профиля" class="form__input form__input_type_name">
                 <input type="text" name="description" placeholder="Описание профиля"
                     class="form__input form__input_type_description">
+                <button type="submit" class="form__save-button">Сохранить</button>
+            </form>
+        </div>
+        <div class="overlay__container overlay__container_type_add-card">
+            <button type="button" class="overlay__close"></button>
+            <form action="/" name="form_type_add-card" class="form form_type_add-card">
+                <h2 class="form__header">Новое место</h2>
+                <input type="text" name="name" placeholder="Название" class="form__input form__input_type_title">
+                <input type="text" name="link" placeholder="Ссылка на картинку"
+                    class="form__input form__input_type_link">
                 <button type="submit" class="form__save-button">Сохранить</button>
             </form>
         </div>
