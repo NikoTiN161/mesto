@@ -19,6 +19,7 @@
 
 @media (max-width: 768px)  {
     .elements__like-button:hover{
-        opacity: 1;
+        opacity: initial;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
 }

@@ -82,9 +82,11 @@ function createCards(arr, list) {
 }
 
 function toggleStateVisible(params) {
-    params.forEach((item) => {
-        item.classList.toggle('overlay_opened');
-    })
+    if (!(params.length === undefined)) {
+        params.forEach((item) => {
+            item.classList.toggle('overlay_opened');
+        })
+    } else params.classList.toggle('overlay_opened');
 }
 
 function openPopupEditProfileHandler(e) {
@@ -109,9 +111,8 @@ function openPopupImageHandler(e) {
 
 function closePopupHandler(e) {
     e.preventDefault();
-    e.target.closest('.overlay').classList.toggle('overlay_opened');
+    toggleStateVisible([e.target.closest('.overlay'), e.target.closest('.overlay__container')]);
     e.target.closest('.overlay').classList.remove('overlay_darker');
-    e.target.closest('.overlay__container').classList.toggle('overlay_opened');
 }
 
 function formEditProfileSubmitHandler(e) {
@@ -138,3 +139,8 @@ overlayCloseButtons.forEach((item) => {
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 formAddCard.addEventListener('submit', formAddCardSubmitHandler)
 
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') overlayCloseButtons.forEach((item) => {
+        item.click();
+    });
+});
