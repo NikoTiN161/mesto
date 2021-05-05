@@ -111,14 +111,14 @@ function formEditProfileSubmitHandler(e) {
     e.preventDefault();
     profileUsername.textContent = nameInput.value;
     profileDescription.textContent = jobInput.value;
-    closePopupHandler(e);
+    closePopup(popupOverlayEditProfile);
 }
 
 function formAddCardSubmitHandler(e) {
     e.preventDefault();
     elementsItems.prepend(createCard({ name: titleInput.value, link: linkInput.value }));
     formAddCard.reset();
-    closePopupHandler(e);
+    closePopup(popupOverlayAddCard);
 }
 
 createCards(initialCards, elementsItems);
