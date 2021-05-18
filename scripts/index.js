@@ -33,6 +33,7 @@ const profileAddButton = document.querySelector('.profile__add-button');
 const popupOverlayEditProfile = document.querySelector('.overlay_type_edit-profile');
 const popupOverlayAddCard = document.querySelector('.overlay_type_add-card');
 const popupOverlayOpenImage = document.querySelector('.overlay_type_popup-image');
+const overlays = Array.from(document.querySelectorAll('.overlay'));
 const overlayCloseButtons = Array.from(document.querySelectorAll('.overlay__close'));
 const profileUsername = document.querySelector('.profile__username');
 const profileDescription = document.querySelector('.profile__description');
@@ -82,14 +83,34 @@ function openPopup(popup) {
 
 function closePopup(popup) {
     popup.classList.remove('overlay_opened');
+    removeEventListener('keydown', closeOpenedPopup);
 }
 
 function updateInputValidate(inputEl) {
     inputEl.dispatchEvent(new Event('input'));
 }
 
+function getOpenedPopup() {
+    return document.querySelector('.overlay_opened');
+}
+
+function closeOpenedPopup(e) {
+    if (e.key === 'Escape') {
+        closePopup(getOpenedPopup());
+    }
+}
+
+function setEventListenerOnDocument(event, nameFunction) {
+    document.addEventListener(event, nameFunction);
+}
+function removeEventListenerOnDocument(event, nameFunction) {
+    document.removeEventListener(event, nameFunction);
+}
+
+
 function openPopupEditProfileHandler(e) {
     openPopup(popupOverlayEditProfile);
+    setEventListenerOnDocument('keydown', closeOpenedPopup);
     nameInput.value = profileUsername.textContent;
     jobInput.value = profileDescription.textContent;
     updateInputValidate(nameInput);
@@ -98,10 +119,13 @@ function openPopupEditProfileHandler(e) {
 
 function openPopupAddCardHandler(e) {
     openPopup(popupOverlayAddCard);
+    setEventListenerOnDocument('keydown', closeOpenedPopup);
+
 }
 
 function openPopupImageHandler(item) {
     openPopup(popupOverlayOpenImage);
+    setEventListenerOnDocument('keydown', closeOpenedPopup);
     const thisImage = popupOverlayOpenImage.querySelector('.popup-image__image');
     thisImage.src = item.link;
     thisImage.alt = item.name;
@@ -111,6 +135,7 @@ function openPopupImageHandler(item) {
 
 function closePopupHandler(e) {
     closePopup(e.target.closest('.overlay'));
+    removeEventListener('keydown', closeOpenedPopup);
 }
 
 function formEditProfileSubmitHandler(e) {
@@ -132,6 +157,15 @@ function formAddCardSubmitHandler(e) {
 createCards(initialCards, elementsItems);
 profileEditButton.addEventListener('click', openPopupEditProfileHandler);
 profileAddButton.addEventListener('click', openPopupAddCardHandler);
+
+overlays.forEach((item) => {
+    item.addEventListener('click', (e) => {
+        if (e.target.classList.contains('overlay')) {
+            closePopupHandler(e);
+        }
+    })
+})
+
 overlayCloseButtons.forEach((item) => {
     item.addEventListener('click', closePopupHandler);
 })
