@@ -127,7 +127,6 @@ function formAddCardSubmitHandler(e) {
     closePopup(popupOverlayAddCard);
     updateInputValidate(titleInput);
     updateInputValidate(linkInput);
-
 }
 
 createCards(initialCards, elementsItems);

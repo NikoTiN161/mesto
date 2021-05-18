@@ -25,11 +25,9 @@ function toggleButtonState(buttonElement, inputList) {
     if (hasInvalidInputs(inputList)) {
         buttonElement.disabled = true;
         buttonElement.classList.add('form__save-button_disabled');
-        console.log('togle true');
     } else {
         buttonElement.disabled = false;
         buttonElement.classList.remove('form__save-button_disabled');
-        console.log('togle false');
     }
 }
 
