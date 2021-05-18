@@ -84,10 +84,16 @@ function closePopup(popup) {
     popup.classList.remove('overlay_opened');
 }
 
+function updateInputValidate(inputEl) {
+    inputEl.dispatchEvent(new Event('input'));
+}
+
 function openPopupEditProfileHandler(e) {
     openPopup(popupOverlayEditProfile);
     nameInput.value = profileUsername.textContent;
     jobInput.value = profileDescription.textContent;
+    updateInputValidate(nameInput);
+    updateInputValidate(jobInput);
 }
 
 function openPopupAddCardHandler(e) {
@@ -119,6 +125,9 @@ function formAddCardSubmitHandler(e) {
     elementsItems.prepend(createCard({ name: titleInput.value, link: linkInput.value }));
     formAddCard.reset();
     closePopup(popupOverlayAddCard);
+    updateInputValidate(titleInput);
+    updateInputValidate(linkInput);
+
 }
 
 createCards(initialCards, elementsItems);
@@ -130,4 +139,11 @@ overlayCloseButtons.forEach((item) => {
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 formAddCard.addEventListener('submit', formAddCardSubmitHandler);
 
-
+enableValidation({
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__save-button',
+    inactiveButtonClass: 'form__save-button_disabled',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_active'
+});

@@ -37,11 +37,14 @@
     <div class="overlay overlay_type_edit-profile">
         <div class="overlay__container">
             <button type="button" class="overlay__close"></button>
-            <form action="/" name="form_type_edit-profile" class="form form_type_edit-profile">
+            <form action="/" novalidate name="form_type_edit-profile" class="form form_type_edit-profile">
                 <h2 class="form__header">Редактировать профиль</h2>
-                <input type="text" name="username" placeholder="Имя профиля" class="form__input form__input_type_name">
-                <input type="text" name="description" placeholder="Описание профиля"
-                    class="form__input form__input_type_description">
+                <input type="text" id="input-name" required minlength="2" maxlength="40" name="username"
+                    placeholder="Имя профиля" class="form__input form__input_type_name">
+                <span class="input-name-error form__input-error"></span>
+                <input type="text" id="input-description" required minlength="2" maxlength="200" name="description"
+                    placeholder="Описание профиля" class="form__input form__input_type_description">
+                <span class="input-description-error form__input-error"></span>
                 <button type="submit" class="form__save-button">Сохранить</button>
             </form>
         </div>
@@ -49,12 +52,15 @@
     <div class="overlay overlay_type_add-card">
         <div class="overlay__container">
             <button type="button" class="overlay__close"></button>
-            <form action="/" name="form_type_add-card" class="form form_type_add-card">
+            <form action="/" novalidate name="form_type_add-card" class="form form_type_add-card">
                 <h2 class="form__header">Новое место</h2>
-                <input type="text" name="name" placeholder="Название" class="form__input form__input_type_title">
-                <input type="url" required name="link" placeholder="Ссылка на картинку"
+                <input type="text" id="input-title" required minlength="2" maxlength="30" name="title"
+                    placeholder="Название" class="form__input form__input_type_title">
+                <span class="input-title-error form__input-error"></span>
+                <input type="url" id="input-link" required name="link" placeholder="Ссылка на картинку"
                     class="form__input form__input_type_link">
-                <button type="submit" class="form__save-button">Сохранить</button>
+                <span class="input-link-error form__input-error"></span>
+                <input type="submit" disabled class="form__save-button form__save-button_disabled" value="Создать">
             </form>
         </div>
     </div>
@@ -79,6 +85,7 @@
         </li>
     </template>
 
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 
