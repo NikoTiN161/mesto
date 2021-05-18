@@ -159,7 +159,7 @@ profileEditButton.addEventListener('click', openPopupEditProfileHandler);
 profileAddButton.addEventListener('click', openPopupAddCardHandler);
 
 overlays.forEach((item) => {
-    item.addEventListener('click', (e) => {
+    item.addEventListener('mousedown', (e) => {
         if (e.target.classList.contains('overlay')) {
             closePopupHandler(e);
         }
