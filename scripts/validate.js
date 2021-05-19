@@ -21,13 +21,13 @@ const enableValidation = ({ formSelector, ...restConfig }) => {
     })
 };
 
-function toggleButtonState(buttonElement, inputList) {
+function toggleButtonState(buttonElement, inputList, { inactiveButtonClass }) {
     if (hasInvalidInputs(inputList)) {
         buttonElement.disabled = true;
-        buttonElement.classList.add('form__save-button_disabled');
+        buttonElement.classList.add(inactiveButtonClass);
     } else {
         buttonElement.disabled = false;
-        buttonElement.classList.remove('form__save-button_disabled');
+        buttonElement.classList.remove(inactiveButtonClass);
     }
 }
 
@@ -43,10 +43,10 @@ function setEventListeners(formElement, config) {
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             checkInputValidity(formElement, inputElement, restConfig);
-            toggleButtonState(buttonElement, inputList);
+            toggleButtonState(buttonElement, inputList, restConfig);
         })
     });
-    toggleButtonState(buttonElement, inputList);
+    toggleButtonState(buttonElement, inputList, restConfig);
 };
 
 function hasInvalidInputs(inputList) {

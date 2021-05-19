@@ -79,15 +79,12 @@ function createCards(arr, list) {
 
 function openPopup(popup) {
     popup.classList.add('overlay_opened');
+    setEventListenerOnDocument('keydown', closeOpenedPopup);
 }
 
 function closePopup(popup) {
     popup.classList.remove('overlay_opened');
-    removeEventListener('keydown', closeOpenedPopup);
-}
-
-function updateInputValidate(inputEl) {
-    inputEl.dispatchEvent(new Event('input'));
+    removeEventListenerOnDocument('keydown', closeOpenedPopup);
 }
 
 function getOpenedPopup() {
@@ -107,25 +104,22 @@ function removeEventListenerOnDocument(event, nameFunction) {
     document.removeEventListener(event, nameFunction);
 }
 
-
 function openPopupEditProfileHandler(e) {
     openPopup(popupOverlayEditProfile);
-    setEventListenerOnDocument('keydown', closeOpenedPopup);
     nameInput.value = profileUsername.textContent;
     jobInput.value = profileDescription.textContent;
-    updateInputValidate(nameInput);
-    updateInputValidate(jobInput);
+    const buttonElement = formEditProfile.querySelector('.form__save-button');
+    const listInput = [nameInput, jobInput];
+    const inactiveButtonClass = 'form__save-button_disabled';
+    toggleButtonState(buttonElement, listInput, { inactiveButtonClass });
 }
 
 function openPopupAddCardHandler(e) {
     openPopup(popupOverlayAddCard);
-    setEventListenerOnDocument('keydown', closeOpenedPopup);
-
 }
 
 function openPopupImageHandler(item) {
     openPopup(popupOverlayOpenImage);
-    setEventListenerOnDocument('keydown', closeOpenedPopup);
     const thisImage = popupOverlayOpenImage.querySelector('.popup-image__image');
     thisImage.src = item.link;
     thisImage.alt = item.name;
@@ -135,7 +129,6 @@ function openPopupImageHandler(item) {
 
 function closePopupHandler(e) {
     closePopup(e.target.closest('.overlay'));
-    removeEventListener('keydown', closeOpenedPopup);
 }
 
 function formEditProfileSubmitHandler(e) {
@@ -147,11 +140,13 @@ function formEditProfileSubmitHandler(e) {
 
 function formAddCardSubmitHandler(e) {
     e.preventDefault();
+    const buttonElement = formAddCard.querySelector('.form__save-button');
+    const listInput = [titleInput, linkInput];
+    const inactiveButtonClass = 'form__save-button_disabled';
     elementsItems.prepend(createCard({ name: titleInput.value, link: linkInput.value }));
     formAddCard.reset();
     closePopup(popupOverlayAddCard);
-    updateInputValidate(titleInput);
-    updateInputValidate(linkInput);
+    toggleButtonState(buttonElement, listInput, { inactiveButtonClass });
 }
 
 createCards(initialCards, elementsItems);
