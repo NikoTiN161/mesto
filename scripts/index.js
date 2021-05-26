@@ -1,13 +1,26 @@
-import Card from './Card.js'
-import * as Constants from '../utils/constants.js'
+import { config, elementsItems, formAddCard, formEditProfile, initialCards, jobInput, linkInput, nameInput, overlayCloseButtons, overlays, popupOverlayAddCard, popupOverlayEditProfile, popupOverlayOpenImage, profileAddButton, profileDescription, profileEditButton, profileUsername, titleInput } from '../utils/constants.js';
+import Card from './Card.js';
 
+
+// const profileEditButton = document.querySelector('.profile__edit-button');
+// const profileAddButton = document.querySelector('.profile__add-button');
+// const overlayCloseButtons = Array.from(document.querySelectorAll('.overlay__close'));
+// const profileUsername = document.querySelector('.profile__username');
+// const profileDescription = document.querySelector('.profile__description');
+// const formEditProfile = document.querySelector('.form_type_edit-profile');
+// const formAddCard = document.querySelector('.form_type_add-card');
+// const nameInput = formEditProfile.querySelector('.form__input_type_name');
+// const jobInput = formEditProfile.querySelector('.form__input_type_description');
+// const titleInput = formAddCard.querySelector('.form__input_type_title');
+// const linkInput = formAddCard.querySelector('.form__input_type_link');
+const inactiveButtonClass = 'form__save-button_disabled';
+const cardSelector = '#element';
 
 //добавление в список элементов
 function createCards(arr, list) {
     arr.forEach((item) => {
-        const card = new Card(item, '#element');
-        const cardElement = card.generateCard();
-        list.append(cardElement);
+        const card = new Card(item, cardSelector);
+        list.append(card.generateCard());
     });
 }
 
@@ -39,16 +52,16 @@ function removeEventListenerOnDocument(event, nameFunction) {
 }
 
 function openPopupEditProfileHandler() {
-    openPopup(Constants.popupOverlayEditProfile);
-    Constants.nameInput.value = Constants.profileUsername.textContent;
-    Constants.jobInput.value = Constants.profileDescription.textContent;
-    const buttonElement = Constants.formEditProfile.querySelector('.form__save-button');
-    const listInput = [Constants.nameInput, Constants.jobInput];
-    toggleButtonState(buttonElement, listInput, { Constants[inactiveButtonClass] } );
+    openPopup(popupOverlayEditProfile);
+    nameInput.value = profileUsername.textContent;
+    jobInput.value = profileDescription.textContent;
+    const buttonElement = formEditProfile.querySelector('.form__save-button');
+    const listInput = [nameInput, jobInput];
+    toggleButtonState(buttonElement, listInput, { inactiveButtonClass } );
 }
 
 function openPopupAddCardHandler() {
-    openPopup(Constants.popupOverlayAddCard);
+    openPopup(popupOverlayAddCard);
 }
 
 function openPopupImageHandler(item) {
@@ -66,27 +79,27 @@ function closePopupHandler(e) {
 
 function formEditProfileSubmitHandler(e) {
     e.preventDefault();
-    Constants.profileUsername.textContent = Constants.nameInput.value;
-    Constants.profileDescription.textContent = Constants.jobInput.value;
-    closePopup(Constants.popupOverlayEditProfile);
+    profileUsername.textContent = nameInput.value;
+    profileDescription.textContent = jobInput.value;
+    closePopup(popupOverlayEditProfile);
 }
 
 function formAddCardSubmitHandler(e) {
     e.preventDefault();
-    const buttonElement = Constants.formAddCard.querySelector('.form__save-button');
-    const listInput = [Constants.titleInput, Constants.linkInput];
+    const buttonElement = formAddCard.querySelector('.form__save-button');
+    const listInput = [titleInput, linkInput];
     const inactiveButtonClass = 'form__save-button_disabled';
-    Constants.elementsItems.prepend(createCard({ name: Constants.titleInput.value, link: Constants.linkInput.value }));
-    Constants.formAddCard.reset();
-    closePopup(Constants.popupOverlayAddCard);
+    elementsItems.prepend(new Card({ name: titleInput.value, link: linkInput.value }, cardSelector).generateCard());
+    formAddCard.reset();
+    closePopup(popupOverlayAddCard);
     toggleButtonState(buttonElement, listInput, { inactiveButtonClass });
 }
 
-createCards(Constants.initialCards, Constants.elementsItems);
-Constants.profileEditButton.addEventListener('click', openPopupEditProfileHandler);
-Constants.profileAddButton.addEventListener('click', openPopupAddCardHandler);
+createCards(initialCards, elementsItems);
+profileEditButton.addEventListener('click', openPopupEditProfileHandler);
+profileAddButton.addEventListener('click', openPopupAddCardHandler);
 
-Constants.overlays.forEach((item) => {
+overlays.forEach((item) => {
     item.addEventListener('mousedown', (e) => {
         if (e.target.classList.contains('overlay')) {
             closePopupHandler(e);
@@ -94,17 +107,10 @@ Constants.overlays.forEach((item) => {
     })
 })
 
-Constants.overlayCloseButtons.forEach((item) => {
+overlayCloseButtons.forEach((item) => {
     item.addEventListener('click', closePopupHandler);
 })
-Constants.formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
-Constants.formAddCard.addEventListener('submit', formAddCardSubmitHandler);
+formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
+formAddCard.addEventListener('submit', formAddCardSubmitHandler);
 
-enableValidation({
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__save-button',
-    inactiveButtonClass: 'form__save-button_disabled',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_active'
-});
+enableValidation(config);
