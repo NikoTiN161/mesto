@@ -1,39 +1,38 @@
-
 export default class FormValidator {
     constructor(config, formElement) {
         this._config = config;
         this._formElement = formElement;
         this._buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
         this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+        this._inputErrorClass = this._config.inputErrorClass;
+        this._errorClass = this._config.errorClass;
     }
 
-    _showError(formElement, inputElement, config) {
-        const { inputErrorClass, errorClass } = config;
+    _showError(formElement, inputElement) {
         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-        inputElement.classList.add(inputErrorClass);
+        inputElement.classList.add(this._inputErrorClass);
         errorElement.textContent = inputElement.validationMessage;
-        errorElement.classList.add(errorClass);
+        errorElement.classList.add(this._errorClass);
     }
 
-    _hideError(formElement, inputElement, config) {
-        const { inputErrorClass, errorClass } = config;
+    _hideError(formElement, inputElement) {
         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-        inputElement.classList.remove(inputErrorClass);
-        errorElement.classList.remove(errorClass);
+        inputElement.classList.remove(this._inputErrorClass);
+        errorElement.classList.remove(this._errorClass);
         errorElement.textContent = '';
     }
-    
+
     _hasInvalidInputs(inputList) {
         return inputList.some((inputElement) => {
             return !inputElement.validity.valid;
         });
     }
-    
-    _checkInputValidity(formElement, inputElement, config) {
+
+    _checkInputValidity(formElement, inputElement) {
         if (inputElement.validity.valid) {
-            this._hideError(formElement, inputElement, config);
+            this._hideError(formElement, inputElement);
         } else {
-            this._showError(formElement, inputElement, config);
+            this._showError(formElement, inputElement);
         }
     }
 
@@ -41,10 +40,10 @@ export default class FormValidator {
         this._formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
-        
+
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
-                this._checkInputValidity(this._formElement, inputElement, this._config);
+                this._checkInputValidity(this._formElement, inputElement);
                 this.toggleButtonState();
             })
         });

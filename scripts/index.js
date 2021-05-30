@@ -69,4 +69,3 @@ formAddCardValidator.enableValidation();
 const formEditProfileValidator = new FormValidator(config, formEditProfile);
 formEditProfileValidator.enableValidation();
 
-
