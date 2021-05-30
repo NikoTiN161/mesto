@@ -1,4 +1,4 @@
-import openPopupImageHandler from './index.js'
+import { openPopupImageHandler } from '../utils/utils.js'
 export default class Card {
     constructor(data, cardSelector) {
         this._name = data.name;
