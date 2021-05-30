@@ -1,3 +1,4 @@
+import openPopupImageHandler from './index.js'
 export default class Card {
     constructor(data, cardSelector) {
         this._name = data.name;
@@ -8,17 +9,11 @@ export default class Card {
 
     _getTemplate() {
         const cardElement = document.querySelector(this._cardSelector).content
-        .querySelector('.elements__item').cloneNode(true);
+            .querySelector('.elements__item').cloneNode(true);
         return cardElement;
     }
-
-    generateCard() {
-        this._element = this._getTemplate();
-        this._element.querySelector('.elements__image').src = this._link;
-        this._element.querySelector('.elements__image').alt = `фотография: ${this._name}`;
-        this._element.querySelector('.elements__header').textContent = this._name;
-        this._setEventListeners();
-        return this._element;
+    _getCard() {
+        return { name: this._name, link: this._link };
     }
 
     _setEventListeners() {
@@ -28,6 +23,10 @@ export default class Card {
 
         this._element.querySelector('.elements__delete-button').addEventListener('click', () => {
             this._handleDeleteButtonClick();
+        });
+
+        this._element.querySelector('.elements__image').addEventListener('click', () => {
+            this._handleImageButtonClick();
         });
     }
 
@@ -40,11 +39,17 @@ export default class Card {
         this._element.querySelector('.elements__delete-button').closest('.elements__item').remove();
     }
 
-    
-    // _handleImageButtonClick() 
+    _handleImageButtonClick() {
+        openPopupImageHandler(this._getCard());
+    }
 
+    generateCard() {
+        this._element = this._getTemplate();
+        this._element.querySelector('.elements__image').src = this._link;
+        this._element.querySelector('.elements__image').alt = `фотография: ${this._name}`;
+        this._element.querySelector('.elements__header').textContent = this._name;
+        this._setEventListeners();
+        return this._element;
+    }
 }
 
-//     imageElement.addEventListener('click', function () {
-//         openPopupImageHandler(item);
-//     });

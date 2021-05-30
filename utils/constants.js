@@ -25,8 +25,6 @@ export const initialCards = [
     }
 ];
 
-export const elementsItems = document.querySelector('.elements__items');
-
 export const config = {
     formSelector: '.form',
     inputSelector: '.form__input',
@@ -36,8 +34,7 @@ export const config = {
     errorClass: 'form__input-error_active'
 };
 
-
-
+export const elementsItems = document.querySelector('.elements__items');
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const profileAddButton = document.querySelector('.profile__add-button');
 export const popupOverlayEditProfile = document.querySelector('.overlay_type_edit-profile');
@@ -53,4 +50,4 @@ export const nameInput = formEditProfile.querySelector('.form__input_type_name')
 export const jobInput = formEditProfile.querySelector('.form__input_type_description');
 export const titleInput = formAddCard.querySelector('.form__input_type_title');
 export const linkInput = formAddCard.querySelector('.form__input_type_link');
-// export const inactiveButtonClass = 'form__save-button_disabled';
+export const cardSelector = '#element';

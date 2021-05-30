@@ -1,28 +1,11 @@
-import { config, elementsItems, formAddCard, formEditProfile, initialCards, jobInput, linkInput, nameInput, overlayCloseButtons, overlays, popupOverlayAddCard, popupOverlayEditProfile, popupOverlayOpenImage, profileAddButton, profileDescription, profileEditButton, profileUsername, titleInput } from '../utils/constants.js';
+import {
+    cardSelector,
+    config, elementsItems, formAddCard, formEditProfile, initialCards, jobInput, linkInput, nameInput,
+    overlayCloseButtons, overlays, popupOverlayAddCard, popupOverlayEditProfile, popupOverlayOpenImage,
+    profileAddButton, profileDescription, profileEditButton, profileUsername, titleInput
+} from '../utils/constants.js';
 import Card from './Card.js';
-
-
-// const profileEditButton = document.querySelector('.profile__edit-button');
-// const profileAddButton = document.querySelector('.profile__add-button');
-// const overlayCloseButtons = Array.from(document.querySelectorAll('.overlay__close'));
-// const profileUsername = document.querySelector('.profile__username');
-// const profileDescription = document.querySelector('.profile__description');
-// const formEditProfile = document.querySelector('.form_type_edit-profile');
-// const formAddCard = document.querySelector('.form_type_add-card');
-// const nameInput = formEditProfile.querySelector('.form__input_type_name');
-// const jobInput = formEditProfile.querySelector('.form__input_type_description');
-// const titleInput = formAddCard.querySelector('.form__input_type_title');
-// const linkInput = formAddCard.querySelector('.form__input_type_link');
-const inactiveButtonClass = 'form__save-button_disabled';
-const cardSelector = '#element';
-
-//добавление в список элементов
-function createCards(arr, list) {
-    arr.forEach((item) => {
-        const card = new Card(item, cardSelector);
-        list.append(card.generateCard());
-    });
-}
+import FormValidator from './FormValidator.js'
 
 function openPopup(popup) {
     popup.classList.add('overlay_opened');
@@ -55,16 +38,14 @@ function openPopupEditProfileHandler() {
     openPopup(popupOverlayEditProfile);
     nameInput.value = profileUsername.textContent;
     jobInput.value = profileDescription.textContent;
-    const buttonElement = formEditProfile.querySelector('.form__save-button');
-    const listInput = [nameInput, jobInput];
-    toggleButtonState(buttonElement, listInput, { inactiveButtonClass } );
+    formEditProfileValidator.toggleButtonState();
 }
 
 function openPopupAddCardHandler() {
     openPopup(popupOverlayAddCard);
 }
 
-function openPopupImageHandler(item) {
+export default function openPopupImageHandler(item) {
     openPopup(popupOverlayOpenImage);
     const thisImage = popupOverlayOpenImage.querySelector('.popup-image__image');
     thisImage.src = item.link;
@@ -86,13 +67,10 @@ function formEditProfileSubmitHandler(e) {
 
 function formAddCardSubmitHandler(e) {
     e.preventDefault();
-    const buttonElement = formAddCard.querySelector('.form__save-button');
-    const listInput = [titleInput, linkInput];
-    const inactiveButtonClass = 'form__save-button_disabled';
     elementsItems.prepend(new Card({ name: titleInput.value, link: linkInput.value }, cardSelector).generateCard());
     formAddCard.reset();
     closePopup(popupOverlayAddCard);
-    toggleButtonState(buttonElement, listInput, { inactiveButtonClass });
+    formAddCardValidator.toggleButtonState();
 }
 
 createCards(initialCards, elementsItems);
@@ -113,4 +91,17 @@ overlayCloseButtons.forEach((item) => {
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 formAddCard.addEventListener('submit', formAddCardSubmitHandler);
 
-enableValidation(config);
+function createCards(arr, list) {
+    arr.forEach((item) => {
+        const card = new Card(item, cardSelector);
+        list.append(card.generateCard());
+    });
+}
+
+const formAddCardValidator = new FormValidator(config, formAddCard);
+formAddCardValidator.enableValidation();
+
+const formEditProfileValidator = new FormValidator(config, formEditProfile);
+formEditProfileValidator.enableValidation();
+
+
