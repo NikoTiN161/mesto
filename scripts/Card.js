@@ -1,10 +1,11 @@
-import { openPopupImageHandler } from '../utils/utils.js'
+// import { openPopupImageHandler } from '../utils/utils.js'
 export default class Card {
-    constructor(data, cardSelector) {
+    constructor({data, handleCardClick}, cardSelector) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
         this._isLiked = false;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -26,7 +27,7 @@ export default class Card {
         });
 
         this._element.querySelector('.elements__image').addEventListener('click', () => {
-            this._handleImageButtonClick();
+            this._handleCardClick(this._getCard());
         });
     }
 
@@ -37,10 +38,6 @@ export default class Card {
 
     _handleDeleteButtonClick() {
         this._element.querySelector('.elements__delete-button').closest('.elements__item').remove();
-    }
-
-    _handleImageButtonClick() {
-        openPopupImageHandler(this._getCard());
     }
 
     generateCard() {

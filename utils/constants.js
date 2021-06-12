@@ -34,12 +34,11 @@ export const config = {
     errorClass: 'form__input-error_active'
 };
 
-export const elementsItems = document.querySelector('.elements__items');
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const profileAddButton = document.querySelector('.profile__add-button');
 export const popupOverlayEditProfile = document.querySelector('.overlay_type_edit-profile');
 export const popupOverlayAddCard = document.querySelector('.overlay_type_add-card');
-export const popupOverlayOpenImage = document.querySelector('.overlay_type_popup-image');
+export const popupWithImageSelector = '.overlay_type_popup-image';
 export const overlays = Array.from(document.querySelectorAll('.overlay'));
 export const overlayCloseButtons = Array.from(document.querySelectorAll('.overlay__close'));
 export const profileUsername = document.querySelector('.profile__username');

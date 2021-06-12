@@ -1,18 +1,24 @@
 import {
     cardSelector,
-    config, elementsItems, formAddCard, formEditProfile, initialCards, jobInput, linkInput, nameInput,
-    overlayCloseButtons, overlays, popupOverlayAddCard, popupOverlayEditProfile, popupOverlayOpenImage,
+    config, formAddCard, formEditProfile, initialCards, jobInput, linkInput, nameInput,
+    popupOverlayAddCard, popupOverlayEditProfile, popupWithImageSelector,
     profileAddButton, profileDescription, profileEditButton, profileUsername, titleInput, cardListSelector
 } from '../utils/constants.js';
 import Card from './Card.js';
 import Section from './Section.js';
 import FormValidator from './FormValidator.js';
-import { openPopup, closePopup } from '../utils/utils.js';
+import PopupWithImage from './PopupWithImage.js';
 
 const cardList = new Section({
     data: initialCards,
     renderer: (item) => {
-        const card = new Card(item, cardSelector);
+        const card = new Card({
+            data: item,
+            handleCardClick: ({name, link}) => {
+                const popupWithImage = new PopupWithImage(popupWithImageSelector);
+                popupWithImage.open({name, link});
+                popupWithImage.setEventListeners();
+            }}, cardSelector);
         cardList.addItem(card.generateCard(), true);
     }
 }, cardListSelector);
@@ -28,10 +34,6 @@ function openPopupEditProfileHandler() {
 
 function openPopupAddCardHandler() {
     openPopup(popupOverlayAddCard);
-}
-
-function closePopupHandler(e) {
-    closePopup(e.target.closest('.overlay'));
 }
 
 function formEditProfileSubmitHandler(e) {
@@ -52,17 +54,6 @@ function formAddCardSubmitHandler(e) {
 profileEditButton.addEventListener('click', openPopupEditProfileHandler);
 profileAddButton.addEventListener('click', openPopupAddCardHandler);
 
-overlays.forEach((item) => {
-    item.addEventListener('mousedown', (e) => {
-        if (e.target.classList.contains('overlay')) {
-            closePopupHandler(e);
-        }
-    })
-})
-
-overlayCloseButtons.forEach((item) => {
-    item.addEventListener('click', closePopupHandler);
-})
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 formAddCard.addEventListener('submit', formAddCardSubmitHandler);
 
