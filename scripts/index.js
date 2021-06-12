@@ -2,18 +2,22 @@ import {
     cardSelector,
     config, elementsItems, formAddCard, formEditProfile, initialCards, jobInput, linkInput, nameInput,
     overlayCloseButtons, overlays, popupOverlayAddCard, popupOverlayEditProfile, popupOverlayOpenImage,
-    profileAddButton, profileDescription, profileEditButton, profileUsername, titleInput
+    profileAddButton, profileDescription, profileEditButton, profileUsername, titleInput, cardListSelector
 } from '../utils/constants.js';
 import Card from './Card.js';
+import Section from './Section.js';
 import FormValidator from './FormValidator.js';
 import { openPopup, closePopup } from '../utils/utils.js';
 
-function createCards(arr, list) {
-    arr.forEach((item) => {
+const cardList = new Section({
+    data: initialCards,
+    renderer: (item) => {
         const card = new Card(item, cardSelector);
-        list.append(card.generateCard());
-    });
-}
+        cardList.addItem(card.generateCard(), true);
+    }
+}, cardListSelector);
+
+cardList.renderItems();
 
 function openPopupEditProfileHandler() {
     openPopup(popupOverlayEditProfile);
@@ -39,13 +43,12 @@ function formEditProfileSubmitHandler(e) {
 
 function formAddCardSubmitHandler(e) {
     e.preventDefault();
-    elementsItems.prepend(new Card({ name: titleInput.value, link: linkInput.value }, cardSelector).generateCard());
+    cardList.addItem(new Card({ name: titleInput.value, link: linkInput.value }, cardSelector).generateCard());
     formAddCard.reset();
     closePopup(popupOverlayAddCard);
     formAddCardValidator.toggleButtonState();
 }
 
-createCards(initialCards, elementsItems);
 profileEditButton.addEventListener('click', openPopupEditProfileHandler);
 profileAddButton.addEventListener('click', openPopupAddCardHandler);
 

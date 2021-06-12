@@ -51,3 +51,4 @@ export const jobInput = formEditProfile.querySelector('.form__input_type_descrip
 export const titleInput = formAddCard.querySelector('.form__input_type_title');
 export const linkInput = formAddCard.querySelector('.form__input_type_link');
 export const cardSelector = '#element';
+export const cardListSelector = '.elements__items';
