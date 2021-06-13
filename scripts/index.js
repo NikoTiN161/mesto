@@ -1,13 +1,13 @@
 import {
     cardSelector,
-    config, formAddCard, formEditProfile, initialCards, jobInput, linkInput, nameInput,
-    popupOverlayAddCard, popupOverlayEditProfile, popupWithImageSelector,
-    profileAddButton, profileDescription, profileEditButton, profileUsername, titleInput, cardListSelector
+    config, initialCards, popupWithImageSelector, formAddCard, formEditProfile,
+    profileAddButton, profileDescription, profileEditButton, profileUsername, cardListSelector, popupAddCardSelector, popupEditProfileSelector
 } from '../utils/constants.js';
 import Card from './Card.js';
 import Section from './Section.js';
 import FormValidator from './FormValidator.js';
 import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
 
 const cardList = new Section({
     data: initialCards,
@@ -26,14 +26,14 @@ const cardList = new Section({
 cardList.renderItems();
 
 function openPopupEditProfileHandler() {
-    openPopup(popupOverlayEditProfile);
+    popupEditProfile.open();
     nameInput.value = profileUsername.textContent;
     jobInput.value = profileDescription.textContent;
     formEditProfileValidator.toggleButtonState();
 }
 
 function openPopupAddCardHandler() {
-    openPopup(popupOverlayAddCard);
+    popupAddCard.open();
 }
 
 function formEditProfileSubmitHandler(e) {
@@ -46,16 +46,15 @@ function formEditProfileSubmitHandler(e) {
 function formAddCardSubmitHandler(e) {
     e.preventDefault();
     cardList.addItem(new Card({ name: titleInput.value, link: linkInput.value }, cardSelector).generateCard());
-    formAddCard.reset();
-    closePopup(popupOverlayAddCard);
+    popupAddCard.close();
     formAddCardValidator.toggleButtonState();
 }
 
 profileEditButton.addEventListener('click', openPopupEditProfileHandler);
 profileAddButton.addEventListener('click', openPopupAddCardHandler);
 
-formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
-formAddCard.addEventListener('submit', formAddCardSubmitHandler);
+// formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
+// formAddCard.addEventListener('submit', formAddCardSubmitHandler);
 
 const formAddCardValidator = new FormValidator(config, formAddCard);
 formAddCardValidator.enableValidation();
@@ -63,3 +62,5 @@ formAddCardValidator.enableValidation();
 const formEditProfileValidator = new FormValidator(config, formEditProfile);
 formEditProfileValidator.enableValidation();
 
+const popupEditProfile = new PopupWithForm(popupEditProfileSelector, formEditProfileSubmitHandler);
+const popupAddCard = new PopupWithForm(popupAddCardSelector, formAddCardSubmitHandler);
