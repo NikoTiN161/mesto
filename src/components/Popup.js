@@ -3,16 +3,17 @@ export default class Popup {
         this._popupSelector = popupSelector;
         this._popupElement = document.querySelector(this._popupSelector);
         this._closeButton = this._popupElement.querySelector('.overlay__close');
+        this._handleEscClose = this._handleEscClose.bind(this);
     }
 
     open() {
         this._popupElement.classList.add('overlay_opened');
-        document.addEventListener('keydown', this._handleEscClose.bind(this));
+        document.addEventListener('keydown', this._handleEscClose);
     }
 
     close() {
         this._popupElement.classList.remove('overlay_opened');
-        document.removeEventListener('keydown', this._handleEscClose.bind(this));
+        document.removeEventListener('keydown', this._handleEscClose);
     }
 
     _handleEscClose(e) {

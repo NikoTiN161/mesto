@@ -24,18 +24,16 @@ import UserInfo from '../components/UserInfo.js';
 const cardList = new Section({
     data: initialCards,
     renderer: (item) => {
-        const card = new Card({
-            data: item,
-            handleCardClick
-        }, cardSelector);
-        cardList.addItem(card.generateCard(), true);
+        cardList.addItem(createCard(item).generateCard(), true);
     }
 }, cardListSelector);
 
+function createCard(data) {
+    return new Card({ data, handleCardClick }, cardSelector);
+}
 
-function handleCardClick({ name, link }) {
-    const popupWithImage = new PopupWithImage(popupWithImageSelector);
-    popupWithImage.open({ name, link });
+function handleCardClick(item) {
+    popupWithImage.open(item);
     popupWithImage.setEventListeners();
 }
 
@@ -57,7 +55,7 @@ function formEditProfileSubmitHandler(e, values) {
 
 function formAddCardSubmitHandler(e, values) {
     e.preventDefault();
-    cardList.addItem(new Card({ data: values, handleCardClick }, cardSelector).generateCard());
+    cardList.addItem(createCard(values).generateCard());
     popupAddCard.close();
     formAddCardValidator.toggleButtonState();
 }
@@ -68,6 +66,7 @@ profileAddButton.addEventListener('click', openPopupAddCardHandler);
 cardList.renderItems();
 
 const userInfo = new UserInfo({ profileUsernameSelector, profileDescriptionSelector });
+const popupWithImage = new PopupWithImage(popupWithImageSelector);
 
 const formAddCardValidator = new FormValidator(config, formAddCard);
 formAddCardValidator.enableValidation();
