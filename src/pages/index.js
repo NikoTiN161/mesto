@@ -34,7 +34,6 @@ function createCard(data) {
 
 function handleCardClick(item) {
     popupWithImage.open(item);
-    popupWithImage.setEventListeners();
 }
 
 function openPopupEditProfileHandler() {
@@ -67,6 +66,7 @@ cardList.renderItems();
 
 const userInfo = new UserInfo({ profileUsernameSelector, profileDescriptionSelector });
 const popupWithImage = new PopupWithImage(popupWithImageSelector);
+popupWithImage.setEventListeners();
 
 const formAddCardValidator = new FormValidator(config, formAddCard);
 formAddCardValidator.enableValidation();
