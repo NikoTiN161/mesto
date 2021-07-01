@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
 
@@ -16,7 +15,7 @@
 
     <main class="content page__content">
         <section class="profile">
-            <img src="./images/avatar.jpg" alt="Аватар профиля" class="profile__avatar">
+            <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар профиля" class="profile__avatar">
             <div class="profile__info">
                 <h1 class="profile__username">Жак-Ив Кусто</h1>
                 <p class="profile__description">Исследователь океана</p>
@@ -54,13 +53,13 @@
             <button type="button" class="overlay__close"></button>
             <form action="/" novalidate name="form_type_add-card" class="form form_type_add-card">
                 <h2 class="form__header">Новое место</h2>
-                <input type="text" id="input-title" required minlength="2" maxlength="30" name="title"
+                <input type="text" id="input-title" required minlength="2" maxlength="30" name="name"
                     placeholder="Название" class="form__input form__input_type_title">
                 <span class="input-title-error form__input-error"></span>
                 <input type="url" id="input-link" required name="link" placeholder="Ссылка на картинку"
                     class="form__input form__input_type_link">
                 <span class="input-link-error form__input-error"></span>
-                <input type="submit" disabled class="form__save-button form__save-button_disabled" value="Создать">
+                <button type="submit" disabled class="form__save-button form__save-button_disabled">Создать</button>
             </form>
         </div>
     </div>
@@ -68,7 +67,7 @@
         <div class="overlay__container overlay__container_type_popup-image">
             <button type="button" class="overlay__close"></button>
             <figure class="popup-image">
-                <img src="./images/noimage.png" alt="." class="popup-image__image">
+                <img src="<%=require('./images/noimage.png')%>" alt="." class="popup-image__image">
                 <figcaption class="popup-image__caption"></figcaption>
             </figure>
         </div>
@@ -85,8 +84,6 @@
         </li>
     </template>
 
-    <script src="./scripts/validate.js"></script>
-    <script src="./scripts/index.js"></script>
 </body>
 
 </html>
