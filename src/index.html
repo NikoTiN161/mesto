@@ -15,10 +15,13 @@
 
     <main class="content page__content">
         <section class="profile">
+            <!-- <div class="container"> -->
             <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар профиля" class="profile__avatar">
+            <!-- <img src="<%=require('./images/edit-icon.svg')%>" class="profile__avatar-edit"> -->
+            <!-- </div> -->
             <div class="profile__info">
-                <h1 class="profile__username">Жак-Ив Кусто</h1>
-                <p class="profile__description">Исследователь океана</p>
+                <h1 class="profile__username"></h1>
+                <p class="profile__description"></p>
             </div>
             <button type="button" class="profile__edit-button"></button>
             <button type="button" class="profile__add-button"></button>
@@ -38,10 +41,10 @@
             <button type="button" class="overlay__close"></button>
             <form action="/" novalidate name="form_type_edit-profile" class="form form_type_edit-profile">
                 <h2 class="form__header">Редактировать профиль</h2>
-                <input type="text" id="input-name" required minlength="2" maxlength="40" name="username"
+                <input type="text" id="input-name" required minlength="2" maxlength="40" name="name"
                     placeholder="Имя профиля" class="form__input form__input_type_name">
                 <span class="input-name-error form__input-error"></span>
-                <input type="text" id="input-description" required minlength="2" maxlength="200" name="description"
+                <input type="text" id="input-description" required minlength="2" maxlength="200" name="about"
                     placeholder="Описание профиля" class="form__input form__input_type_description">
                 <span class="input-description-error form__input-error"></span>
                 <button type="submit" class="form__save-button">Сохранить</button>
@@ -78,7 +81,10 @@
             <img src="#" alt="фотография" class="elements__image">
             <div class="elements__container">
                 <h2 class="elements__header"></h2>
-                <button type="button" class="elements__like-button"></button>
+                <div class="elements__container">
+                    <button type="button" class="elements__like-button"></button>
+                    <span class="elements__counter-likes"></span>
+                </div>
                 <button type="button" class="elements__delete-button"></button>
             </div>
         </li>

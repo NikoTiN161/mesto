@@ -17,10 +17,8 @@ export default class PopupWithForm extends Popup {
     }
 
     setInputValue(obj) {
-        const keys = Object.keys(obj);
-        keys.forEach((item) => {
-            this._form[`${item}`].value = obj[item];
-        })
+            this._form.name.value = obj.name;
+            this._form.about.value = obj.about;
     }
 
     setEventListeners() {

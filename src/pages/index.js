@@ -12,7 +12,9 @@ import {
     popupEditProfileSelector,
     popupWithImageSelector,
     profileUsernameSelector,
-    profileDescriptionSelector
+    profileDescriptionSelector,
+    profileAvatarSelector,
+    options
 } from '../utils/constants.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
@@ -20,13 +22,29 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
-const cardList = new Section({
-    data: initialCards,
-    renderer: (item) => {
-        cardList.addItem(createCard(item).generateCard(), true);
-    }
-}, cardListSelector);
+let cardList;
+
+const api = new Api(options);
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([user, cards]) => {
+        userInfo.setUserInfo(user);
+
+        cardList = new Section({
+            data: cards,
+            renderer: (card) => {
+                card.isLiked = card.likes.some(item => item._id === user._id);
+                card.isCanDelete = card.owner._id === user._id;
+                cardList.addItem(createCard(card).generateCard(), true);
+            }
+        }, cardListSelector);
+
+        cardList.renderItems();
+    });
+
+
 
 function createCard(data) {
     return new Card({ data, handleCardClick }, cardSelector);
@@ -48,7 +66,11 @@ function openPopupAddCardHandler() {
 
 function formEditProfileSubmitHandler(e, values) {
     e.preventDefault();
-    userInfo.setUserInfo(values);
+    api.updateUserInfo(values)
+        .then(user => {
+            userInfo.setUserInfo(user);
+        })
+    
     popupEditProfile.close();
 }
 
@@ -62,9 +84,11 @@ function formAddCardSubmitHandler(e, values) {
 profileEditButton.addEventListener('click', openPopupEditProfileHandler);
 profileAddButton.addEventListener('click', openPopupAddCardHandler);
 
-cardList.renderItems();
 
-const userInfo = new UserInfo({ profileUsernameSelector, profileDescriptionSelector });
+
+const userInfo = new UserInfo({ profileUsernameSelector, profileDescriptionSelector, profileAvatarSelector });
+
+
 const popupWithImage = new PopupWithImage(popupWithImageSelector);
 popupWithImage.setEventListeners();
 

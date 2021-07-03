@@ -34,12 +34,21 @@ export const config = {
     errorClass: 'form__input-error_active'
 };
 
+export const options = {
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
+    headers: {
+        authorization: '1681b0e3-8bc6-4393-a86e-eb1ba576b507',
+        'Content-Type': 'application/json'
+    }
+}
+
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const profileAddButton = document.querySelector('.profile__add-button');
 export const formAddCard = document.querySelector('.form_type_add-card');
 export const formEditProfile = document.querySelector('.form_type_edit-profile');
 export const profileUsernameSelector = '.profile__username';
 export const profileDescriptionSelector = '.profile__description';
+export const profileAvatarSelector = '.profile__avatar';
 export const popupWithImageSelector = '.overlay_type_popup-image';
 export const popupEditProfileSelector = '.overlay_type_edit-profile';
 export const formEditProfileSelector = '.form_type_edit-profile';
