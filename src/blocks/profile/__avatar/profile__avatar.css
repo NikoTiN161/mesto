@@ -1,27 +1,33 @@
 .profile__avatar {
     margin: 0;
+    background-image: url('');
+    background-size: cover;
+    background-repeat: no-repeat;
     position: relative;
     display: block;
+    border: none;
     border-radius: 120px;
-    max-width: 120px;
+    width: 120px;
     height: 120px;
     object-fit: cover;
+    cursor: pointer;
 }
 
-.profile__avatar::before {
-    content: url('../../../images/edit-icon.svg');
-    background:url('../../../images/edit-icon.svg');
+.profile__avatar::after {
+    content: '';
+    background-image: url('../../../images/edit-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
+    opacity: 0;
     top: 0;
-    bottom: 0;
-    right: 0;
     left: 0;
-    width: 26px;
-    height: 26px;
-    display: block;
-    z-index: 3;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .8);
+    transition: opacity 0.3s ease-in-out;
 }
 
 .profile__avatar:hover::after {
-    opacity: 0.8;
+    opacity: 1;
 }

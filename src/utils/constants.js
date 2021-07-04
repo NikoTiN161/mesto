@@ -44,11 +44,14 @@ export const options = {
 
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const profileAddButton = document.querySelector('.profile__add-button');
+export const profileAvatarButton = document.querySelector('.profile__avatar');
 export const formAddCard = document.querySelector('.form_type_add-card');
 export const formEditProfile = document.querySelector('.form_type_edit-profile');
+export const formUpdateAvatarProfile = document.querySelector('.form_type_update-avatar');
 export const profileUsernameSelector = '.profile__username';
 export const profileDescriptionSelector = '.profile__description';
 export const profileAvatarSelector = '.profile__avatar';
+export const popupUpdateAvatarSelector = '.overlay_type_update-avatar'; 
 export const popupWithImageSelector = '.overlay_type_popup-image';
 export const popupEditProfileSelector = '.overlay_type_edit-profile';
 export const formEditProfileSelector = '.form_type_edit-profile';

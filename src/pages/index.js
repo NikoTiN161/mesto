@@ -1,9 +1,9 @@
 import './index.css'
 import {
     config,
-    initialCards,
     formAddCard,
     formEditProfile,
+    formUpdateAvatarProfile,
     profileAddButton,
     profileEditButton,
     cardSelector,
@@ -14,7 +14,9 @@ import {
     profileUsernameSelector,
     profileDescriptionSelector,
     profileAvatarSelector,
-    options
+    options,
+    popupUpdateAvatarSelector,
+    profileAvatarButton,
 } from '../utils/constants.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
@@ -63,6 +65,9 @@ function openPopupEditProfileHandler() {
 function openPopupAddCardHandler() {
     popupAddCard.open();
 }
+function openPopupUpdateAvatarHandler() {
+    popupUpdateAvatar.open();
+}
 
 function formEditProfileSubmitHandler(e, values) {
     e.preventDefault();
@@ -70,8 +75,17 @@ function formEditProfileSubmitHandler(e, values) {
         .then(user => {
             userInfo.setUserInfo(user);
         })
-    
     popupEditProfile.close();
+}
+
+function formUpdateAvatarSubmitHandler(e, value) {
+    e.preventDefault();
+    api.updateUserAvatar(value)
+        .then(user => {
+            console.log(user);
+        userInfo.setUserInfo(user);
+    });
+    popupUpdateAvatar.close();
 }
 
 function formAddCardSubmitHandler(e, values) {
@@ -83,6 +97,7 @@ function formAddCardSubmitHandler(e, values) {
 
 profileEditButton.addEventListener('click', openPopupEditProfileHandler);
 profileAddButton.addEventListener('click', openPopupAddCardHandler);
+profileAvatarButton.addEventListener('click', openPopupUpdateAvatarHandler);
 
 
 
@@ -95,10 +110,17 @@ popupWithImage.setEventListeners();
 const formAddCardValidator = new FormValidator(config, formAddCard);
 formAddCardValidator.enableValidation();
 
+const formUpdateAvatarProfileValidator = new FormValidator(config, formUpdateAvatarProfile);
+formUpdateAvatarProfileValidator.enableValidation();
+
 const formEditProfileValidator = new FormValidator(config, formEditProfile);
 formEditProfileValidator.enableValidation();
 
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, formEditProfileSubmitHandler);
 popupEditProfile.setEventListeners();
+
+const popupUpdateAvatar = new PopupWithForm(popupUpdateAvatarSelector, formUpdateAvatarSubmitHandler);
+popupUpdateAvatar.setEventListeners();
+
 const popupAddCard = new PopupWithForm(popupAddCardSelector, formAddCardSubmitHandler);
 popupAddCard.setEventListeners();

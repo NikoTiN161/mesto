@@ -55,12 +55,12 @@ export default class Api {
             })
     }
 
-    updateUserAvatar(avatarLink) {
+    updateUserAvatar({link}) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             headers: this._headers,
             method: 'PATCH',
             body: JSON.stringify({
-                avatar: avatarLink,
+                avatar: link,
                 
             })
         })
