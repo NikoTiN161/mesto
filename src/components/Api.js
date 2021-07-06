@@ -4,35 +4,26 @@ export default class Api {
         this._headers = options.headers;
     }
 
+    _response(res) {
+        if (!res.ok) {
+            return new Error(res.status);
+        }
+        return res.json();
+    }
+
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'GET',
             headers: this._headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(res.status);
-            })
-            .catch(err => {
-                console.error(err);
-            })
+            .then(this._response);
     }
 
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(res.status);
-            })
-            .catch(err => {
-                console.error(err);
-            })
+            .then(this._response);
     }
 
     updateUserInfo(user) {
@@ -44,15 +35,7 @@ export default class Api {
                 about: user.about,
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(res.status);
-            })
-            .catch(err => {
-                console.error(err);
-            })
+            .then(this._response);
     }
 
     updateUserAvatar({ link }) {
@@ -64,15 +47,7 @@ export default class Api {
 
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(res.status);
-            })
-            .catch(err => {
-                console.error(err);
-            })
+            .then(this._response);
     }
 
     addNewCard(card) {
@@ -84,15 +59,7 @@ export default class Api {
                 link: card.link,
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(res.status);
-            })
-            .catch(err => {
-                console.error(err);
-            })
+            .then(this._response);;
     }
 
     deleteCard(id) {
@@ -100,15 +67,7 @@ export default class Api {
             headers: this._headers,
             method: 'DELETE',
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(res.status);
-            })
-            .catch(err => {
-                console.error(err);
-            })
+            .then(this._response);
     }
 
     likeCard(id) {
@@ -116,15 +75,7 @@ export default class Api {
             headers: this._headers,
             method: 'PUT',
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(res.status);
-            })
-            .catch(err => {
-                console.error(err);
-            })
+            .then(this._response);
     }
 
     removeLikeCard(id) {
@@ -132,15 +83,6 @@ export default class Api {
             headers: this._headers,
             method: 'DELETE',
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error(res.status);
-            })
-            .catch(err => {
-                console.error(err);
-            })
+            .then(this._response);
     }
-
 }

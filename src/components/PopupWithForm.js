@@ -17,8 +17,8 @@ export default class PopupWithForm extends Popup {
     }
 
     setInputValue(obj) {
-            this._form.name.value = obj.name;
-            this._form.about.value = obj.about;
+        this._form.name.value = obj.name;
+        this._form.about.value = obj.about;
     }
 
     setEventListeners() {
