@@ -60,6 +60,15 @@
             </form>
         </div>
     </div>
+    <div class="overlay overlay_type_detele-card">
+        <div class="overlay__container">
+            <button type="button" class="overlay__close"></button>
+            <form action="/" novalidate name="form_type_detele-card" class="form form_type_detele-card">
+                <h2 class="form__header">Вы уверены?</h2>
+                <button type="submit" class="form__save-button">Да</button>
+            </form>
+        </div>
+    </div>
     <div class="overlay overlay_type_add-card">
         <div class="overlay__container">
             <button type="button" class="overlay__close"></button>
@@ -68,7 +77,9 @@
                 <input type="text" id="input-title" required minlength="2" maxlength="30" name="name"
                     placeholder="Название" class="form__input form__input_type_title">
                 <span class="input-title-error form__input-error"></span>
-                
+                <input type="url" id="input-link" required name="link" placeholder="Ссылка на картинку"
+                    class="form__input form__input_type_link">
+                <span class="input-link-error form__input-error"></span>
                 <button type="submit" disabled class="form__save-button form__save-button_disabled">Создать</button>
             </form>
         </div>

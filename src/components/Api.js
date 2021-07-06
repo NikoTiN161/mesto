@@ -55,13 +55,13 @@ export default class Api {
             })
     }
 
-    updateUserAvatar({link}) {
+    updateUserAvatar({ link }) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             headers: this._headers,
             method: 'PATCH',
             body: JSON.stringify({
                 avatar: link,
-                
+
             })
         })
             .then(res => {
@@ -81,7 +81,7 @@ export default class Api {
             method: 'POST',
             body: JSON.stringify({
                 name: card.name,
-                about: card.link,
+                link: card.link,
             })
         })
             .then(res => {
@@ -95,8 +95,52 @@ export default class Api {
             })
     }
 
-    likedCard(card) {
-        
+    deleteCard(id) {
+        return fetch(`${this._baseUrl}/cards/${id}`, {
+            headers: this._headers,
+            method: 'DELETE',
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error(res.status);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+    likeCard(id) {
+        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+            headers: this._headers,
+            method: 'PUT',
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error(res.status);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+    removeLikeCard(id) {
+        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+            headers: this._headers,
+            method: 'DELETE',
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error(res.status);
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
 }

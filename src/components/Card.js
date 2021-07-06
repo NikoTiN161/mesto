@@ -1,5 +1,5 @@
 export default class Card {
-    constructor({ data, handleCardClick}, cardSelector) {
+    constructor({ data, handleCardClick, handleDeleteCard, like, removeLike }, cardSelector) {
         this._id = data._id;
         this._name = data.name;
         this._link = data.link;
@@ -9,6 +9,9 @@ export default class Card {
         this._isLiked = data.isLiked;
         this._isCanDelete = data.isCanDelete;
         this._handleCardClick = handleCardClick;
+        this._handleDeleteCard = handleDeleteCard;
+        this._like = like;
+        this._removeLike = removeLike;
     }
 
     _getTemplate() {
@@ -17,7 +20,7 @@ export default class Card {
         return cardElement;
     }
     _getCard() {
-        return { name: this._name, link: this._link, likes: this._likes, owner: this._owner };
+        return { _id: this._id, name: this._name, link: this._link, likes: this._likes, owner: this._owner };
     }
 
     _setEventListeners() {
@@ -26,7 +29,7 @@ export default class Card {
         });
 
         this._element.querySelector('.elements__delete-button').addEventListener('click', () => {
-            this._handleDeleteButtonClick();
+            this._handleDeleteCard(this._element);
         });
 
         this._element.querySelector('.elements__image').addEventListener('click', () => {
@@ -34,8 +37,8 @@ export default class Card {
         });
     }
 
-    _like() {
-        if (this._liked) {
+    _isLikeCard() {
+        if (this._isLiked) {
             this._element.querySelector('.elements__like-button').classList.toggle('elements__like-button_liked');
         }
     }
@@ -46,13 +49,16 @@ export default class Card {
         }
     }
 
-    _handleLikeButtonClick() {
+    _toggleLike() {
         this._element.querySelector('.elements__like-button').classList.toggle('elements__like-button_liked');
         this._isLiked = !this._isLiked;
     }
 
-    _handleDeleteButtonClick() {
-        this._element.querySelector('.elements__delete-button').closest('.elements__item').remove();
+    _handleLikeButtonClick() {
+        (this._isLiked)
+            ? this._removeLike(this._element)
+            : this._like(this._element);
+        this._toggleLike();
     }
 
     generateCard() {
@@ -62,7 +68,7 @@ export default class Card {
         this._element.querySelector('.elements__header').textContent = this._name;
         this._element.querySelector('.elements__counter-likes').textContent = this._likes.length;
         this._canDelete();
-        this._like();
+        this._isLikeCard();
         this._setEventListeners();
         return this._element;
     }

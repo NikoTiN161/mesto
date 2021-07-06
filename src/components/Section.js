@@ -16,4 +16,15 @@ export default class Section {
         ? this._container.append(element)
         : this._container.prepend(element);
     }
+
+    // deleteItem(itemId) {
+    //     let newArr = this._renderedItems.slice();
+    //     this._renderedItems.forEach((item, index) => {
+    //         if (item._id === itemId) {
+    //             newArr.splice(index, 1);
+    //         }
+    //     });
+    //     this._renderedItems = newArr;
+    //     this.renderItems();
+    // }
 }

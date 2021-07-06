@@ -53,6 +53,7 @@ export const profileDescriptionSelector = '.profile__description';
 export const profileAvatarSelector = '.profile__avatar';
 export const popupUpdateAvatarSelector = '.overlay_type_update-avatar'; 
 export const popupWithImageSelector = '.overlay_type_popup-image';
+export const popupConfirmSelector = '.overlay_type_detele-card';
 export const popupEditProfileSelector = '.overlay_type_edit-profile';
 export const formEditProfileSelector = '.form_type_edit-profile';
 export const popupAddCardSelector = '.overlay_type_add-card';
