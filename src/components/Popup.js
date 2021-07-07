@@ -3,6 +3,7 @@ export default class Popup {
         this._popupSelector = popupSelector;
         this._popupElement = document.querySelector(this._popupSelector);
         this._closeButton = this._popupElement.querySelector('.overlay__close');
+        this._submitButton = this._popupElement.querySelector('.form__save-button')
         this._handleEscClose = this._handleEscClose.bind(this);
     }
 

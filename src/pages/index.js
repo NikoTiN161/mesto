@@ -56,10 +56,12 @@ function createCard(data) {
         handleDeleteCard: (element) => {
             popupConfirm.open();
             popupConfirm.setConfirmHandler(() => {
+                popupConfirm.handleLoading(true);
                 api.deleteCard(data._id)
                     .then(res => {
                         if (res.message === 'Пост удалён') {
                             popupConfirm.close();
+                            popupConfirm.handleLoading(false);
                             element.remove();
                         }
                     })
@@ -104,32 +106,40 @@ function openPopupUpdateAvatarHandler() {
 
 function formEditProfileSubmitHandler(e, values) {
     e.preventDefault();
+    popupEditProfile.handleLoading(true);
     api.updateUserInfo(values)
         .then(user => {
             userInfo.setUserInfo(user);
             popupEditProfile.close();
+            popupEditProfile.handleLoading(false);
         })
         .catch(err => console.error(err));
 }
 
 function formUpdateAvatarSubmitHandler(e, value) {
     e.preventDefault();
+    popupUpdateAvatar.handleLoading(true);
     api.updateUserAvatar(value)
         .then(user => {
             console.log(user);
             userInfo.setUserInfo(user);
+            popupUpdateAvatar.close();
+            popupUpdateAvatar.handleLoading(false);
+
         });
-    popupUpdateAvatar.close();
 }
 
 function formAddCardSubmitHandler(e, values) {
     e.preventDefault();
+    popupAddCard.handleLoading(true);
+
     api.addNewCard(values)
         .then(card => {
             card.isCanDelete = card.owner._id === userInfo._id;
             cardList.addItem(createCard(card).generateCard());
+            popupAddCard.close();
+            popupAddCard.handleLoading(false);
         })
-    popupAddCard.close();
     formAddCardValidator.toggleButtonState();
 }
 
