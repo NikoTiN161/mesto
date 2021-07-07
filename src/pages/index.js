@@ -68,16 +68,16 @@ function createCard(data) {
                     .catch(err => console.error(err));
             });
         },
-        like: (element) => {
+        like: (counter) => {
             api.likeCard(data._id)
                 .then(card => {
-                    updateLikesCounter(element, card.likes);
+                    updateLikesCounter(counter, card.likes);
                 }).catch(err => console.error(err));
         },
-        removeLike: (element) => {
+        removeLike: (counter) => {
             api.removeLikeCard(data._id)
                 .then(card => {
-                    updateLikesCounter(element, card.likes);
+                    updateLikesCounter(counter, card.likes);
                 }).catch(err => console.error(err));
         },
     }, cardSelector);
@@ -87,8 +87,8 @@ function handleCardClick(item) {
     popupWithImage.open(item);
 }
 
-function updateLikesCounter(element, likes) {
-    element.querySelector('.elements__counter-likes').textContent = likes.length;
+function updateLikesCounter(counter, likes) {
+    counter.textContent = likes.length;
 }
 
 function openPopupEditProfileHandler() {

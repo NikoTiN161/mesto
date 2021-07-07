@@ -56,8 +56,8 @@ export default class Card {
 
     _handleLikeButtonClick() {
         (this._isLiked)
-            ? this._removeLike(this._element)
-            : this._like(this._element);
+            ? this._removeLike(this._counterLikes)
+            : this._like(this._counterLikes);
         this._toggleLike();
     }
 
@@ -66,7 +66,8 @@ export default class Card {
         this._element.querySelector('.elements__image').src = this._link;
         this._element.querySelector('.elements__image').alt = `фотография: ${this._name}`;
         this._element.querySelector('.elements__header').textContent = this._name;
-        this._element.querySelector('.elements__counter-likes').textContent = this._likes.length;
+        this._counterLikes = this._element.querySelector('.elements__counter-likes');
+        this._counterLikes.textContent = this._likes.length;
         this._canDelete();
         this._isLikeCard();
         this._setEventListeners();
