@@ -1,4 +1,5 @@
 .elements__delete-button {
+    position: absolute;
     padding: 0;
     margin: 0;
     background-image: url(../../../images/delete-icon.svg);
@@ -9,7 +10,7 @@
     min-width: 16px;
     min-height: 20px;
     border: none;
-    transform: translate(-17px, -297px );
+    transform: translate(250px, -297px );
     transition: opacity 0.3s ease-in-out;
 }
 
