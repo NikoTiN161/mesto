@@ -4,7 +4,7 @@ export default class Api {
         this._headers = options.headers;
     }
 
-    _response(res) {
+    _checkResponse(res) {
         if (!res.ok) {
             return new Error(res.status);
         }
@@ -16,14 +16,14 @@ export default class Api {
             method: 'GET',
             headers: this._headers
         })
-            .then(this._response);
+            .then(this._checkResponse);
     }
 
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
         })
-            .then(this._response);
+            .then(this._checkResponse);
     }
 
     updateUserInfo(user) {
@@ -35,7 +35,7 @@ export default class Api {
                 about: user.about,
             })
         })
-            .then(this._response);
+            .then(this._checkResponse);
     }
 
     updateUserAvatar({ link }) {
@@ -47,7 +47,7 @@ export default class Api {
 
             })
         })
-            .then(this._response);
+            .then(this._checkResponse);
     }
 
     addNewCard(card) {
@@ -59,7 +59,7 @@ export default class Api {
                 link: card.link,
             })
         })
-            .then(this._response);;
+            .then(this._checkResponse);;
     }
 
     deleteCard(id) {
@@ -67,7 +67,7 @@ export default class Api {
             headers: this._headers,
             method: 'DELETE',
         })
-            .then(this._response);
+            .then(this._checkResponse);
     }
 
     likeCard(id) {
@@ -75,7 +75,7 @@ export default class Api {
             headers: this._headers,
             method: 'PUT',
         })
-            .then(this._response);
+            .then(this._checkResponse);
     }
 
     removeLikeCard(id) {
@@ -83,6 +83,6 @@ export default class Api {
             headers: this._headers,
             method: 'DELETE',
         })
-            .then(this._response);
+            .then(this._checkResponse);
     }
 }

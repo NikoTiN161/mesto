@@ -35,3 +35,5 @@ export const cardSelector = '#element';
 export const cardListSelector = '.elements__items';
 export const formInputSelector = '.form__input';
 export const formSelector = '.form';
+export const popupImageSelector = '.popup-image__image';
+export const popupCaptionSelector = '.popup-image__caption';

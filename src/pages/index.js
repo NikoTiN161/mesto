@@ -8,12 +8,16 @@ import {
     profileEditButton,
     cardSelector,
     cardListSelector,
+    formInputSelector, 
+    formSelector,
     popupAddCardSelector,
     popupEditProfileSelector,
     popupWithImageSelector,
     profileUsernameSelector,
     profileDescriptionSelector,
     profileAvatarSelector,
+    popupImageSelector,
+    popupCaptionSelector,
     options,
     popupUpdateAvatarSelector,
     profileAvatarButton,
@@ -47,7 +51,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         }, cardListSelector);
 
         cardList.renderItems();
-    });
+    })
+    .catch(err => console.error(err));
 
 function createCard(data) {
     return new Card({
@@ -65,7 +70,8 @@ function createCard(data) {
                             element.remove();
                         }
                     })
-                    .catch(err => console.error(err));
+                    .catch(err => console.error(err))
+                    // .finally(popupConfirm.handleLoading(false)); не дожидаясь выполнения запроса сразу меняется на стандартный текст
             });
         },
         like: (counter) => {
@@ -94,14 +100,16 @@ function updateLikesCounter(counter, likes) {
 function openPopupEditProfileHandler() {
     popupEditProfile.open();
     popupEditProfile.setInputValue(userInfo.getUserInfo());
-    formEditProfileValidator.toggleButtonState();
+    formEditProfileValidator.resetValidation();
 }
 
 function openPopupAddCardHandler() {
     popupAddCard.open();
+    formAddCardValidator.resetValidation();
 }
 function openPopupUpdateAvatarHandler() {
     popupUpdateAvatar.open();
+    formEditProfileValidator.resetValidation();
 }
 
 function formEditProfileSubmitHandler(e, values) {
@@ -110,10 +118,11 @@ function formEditProfileSubmitHandler(e, values) {
     api.updateUserInfo(values)
         .then(user => {
             userInfo.setUserInfo(user);
-            popupEditProfile.close();
             popupEditProfile.handleLoading(false);
+            popupEditProfile.close();
         })
-        .catch(err => console.error(err));
+        .catch(err => console.error(err))
+        // .finally(popupEditProfile.handleLoading(false));
 }
 
 function formUpdateAvatarSubmitHandler(e, value) {
@@ -121,26 +130,26 @@ function formUpdateAvatarSubmitHandler(e, value) {
     popupUpdateAvatar.handleLoading(true);
     api.updateUserAvatar(value)
         .then(user => {
-            console.log(user);
             userInfo.setUserInfo(user);
-            popupUpdateAvatar.close();
             popupUpdateAvatar.handleLoading(false);
-
-        });
+            popupUpdateAvatar.close();
+        })
+        .catch(err => console.error(err))
+        // .finally(popupUpdateAvatar.handleLoading(false));
 }
 
 function formAddCardSubmitHandler(e, values) {
     e.preventDefault();
     popupAddCard.handleLoading(true);
-
     api.addNewCard(values)
         .then(card => {
             card.isCanDelete = card.owner._id === userInfo._id;
             cardList.addItem(createCard(card).generateCard());
-            popupAddCard.close();
             popupAddCard.handleLoading(false);
+            popupAddCard.close();
         })
-    formAddCardValidator.toggleButtonState();
+        .catch(err => console.error(err))
+        // .finally(popupAddCard.handleLoading(false));
 }
 
 profileEditButton.addEventListener('click', openPopupEditProfileHandler);
@@ -148,7 +157,7 @@ profileAddButton.addEventListener('click', openPopupAddCardHandler);
 profileAvatarButton.addEventListener('click', openPopupUpdateAvatarHandler);
 
 
-const popupWithImage = new PopupWithImage(popupWithImageSelector);
+const popupWithImage = new PopupWithImage(popupWithImageSelector, popupImageSelector, popupCaptionSelector);
 popupWithImage.setEventListeners();
 const popupConfirm = new PopupConfirm(popupConfirmSelector);
 popupConfirm.setEventListeners();
@@ -162,12 +171,12 @@ formUpdateAvatarProfileValidator.enableValidation();
 const formEditProfileValidator = new FormValidator(config, formEditProfile);
 formEditProfileValidator.enableValidation();
 
-const popupEditProfile = new PopupWithForm(popupEditProfileSelector, formEditProfileSubmitHandler);
+const popupEditProfile = new PopupWithForm(popupEditProfileSelector, formSelector, formInputSelector, formEditProfileSubmitHandler);
 popupEditProfile.setEventListeners();
 
-const popupUpdateAvatar = new PopupWithForm(popupUpdateAvatarSelector, formUpdateAvatarSubmitHandler);
+const popupUpdateAvatar = new PopupWithForm(popupUpdateAvatarSelector, formSelector, formInputSelector, formUpdateAvatarSubmitHandler);
 popupUpdateAvatar.setEventListeners();
 
-const popupAddCard = new PopupWithForm(popupAddCardSelector, formAddCardSubmitHandler);
+const popupAddCard = new PopupWithForm(popupAddCardSelector, formSelector, formInputSelector, formAddCardSubmitHandler);
 popupAddCard.setEventListeners();
 

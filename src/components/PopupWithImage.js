@@ -1,19 +1,14 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
-
-    _getImageElement() {
-        return this._popupElement.querySelector('.popup-image__image');
-    }
-
-    _getCaptionImageElement() {
-        return this._popupElement.querySelector('.popup-image__caption');
+    constructor(popupSelector, popupImageSelector, popupCaptionSelector ) {
+        super(popupSelector);
+        this._image = this._popupElement.querySelector(popupImageSelector);
+        this._caption = this._popupElement.querySelector(popupCaptionSelector);
     }
 
     open(item) {
         super.open();
-        this._image = this._getImageElement();
-        this._caption = this._getCaptionImageElement();
         this._image.src = item.link;
         this._image.alt = item.name;
         this._caption.textContent = item.name;

@@ -7,7 +7,7 @@
     display: block;
     border: none;
     border-radius: 120px;
-    width: 120px;
+    min-width: 120px;
     height: 120px;
     object-fit: cover;
     cursor: pointer;
