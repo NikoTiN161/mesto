@@ -36,7 +36,6 @@ let cardList;
 const userInfo = new UserInfo({ profileUsernameSelector, profileDescriptionSelector, profileAvatarSelector });
 const api = new Api(options);
 
-
 Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([user, cards]) => {
         userInfo.setUserInfo(user);
@@ -71,7 +70,6 @@ function createCard(data) {
                         }
                     })
                     .catch(err => console.error(err))
-                    // .finally(popupConfirm.handleLoading(false)); не дожидаясь выполнения запроса сразу меняется на стандартный текст
             });
         },
         like: (counter) => {
@@ -122,7 +120,6 @@ function formEditProfileSubmitHandler(e, values) {
             popupEditProfile.close();
         })
         .catch(err => console.error(err))
-        // .finally(popupEditProfile.handleLoading(false));
 }
 
 function formUpdateAvatarSubmitHandler(e, value) {
@@ -135,7 +132,6 @@ function formUpdateAvatarSubmitHandler(e, value) {
             popupUpdateAvatar.close();
         })
         .catch(err => console.error(err))
-        // .finally(popupUpdateAvatar.handleLoading(false));
 }
 
 function formAddCardSubmitHandler(e, values) {
@@ -149,7 +145,6 @@ function formAddCardSubmitHandler(e, values) {
             popupAddCard.close();
         })
         .catch(err => console.error(err))
-        // .finally(popupAddCard.handleLoading(false));
 }
 
 profileEditButton.addEventListener('click', openPopupEditProfileHandler);
